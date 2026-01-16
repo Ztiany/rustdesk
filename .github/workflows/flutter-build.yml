@@ -1,6 +1,12 @@
 name: Build the flutter version of the RustDesk
 
 on:
+  workflow_dispatch:
+    inputs:
+      upload-artifact:
+        description: 'Upload artifact'
+        type: boolean
+        default: true
   workflow_call:
     inputs:
       upload-artifact:
@@ -426,7 +432,6 @@ jobs:
             ./SignOutput/rustdesk-*.exe
 
   build-rustdesk-ios:
-    if: ${{ inputs.upload-artifact }}
     name: build rustdesk ios ipa
     runs-on: ${{ matrix.job.os }}
     needs: [generate-bridge]
